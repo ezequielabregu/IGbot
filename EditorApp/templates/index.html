@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>IGpost bot</title>
+    <link rel="stylesheet" type="text/css" href="static/style.css">
+</head>
+<body>
+    <h1>IGpost bot</h1>
+    <hr>
+    <h3> Upload Images</h3>
+    <br>
+    <div class="upload-form">
+    <form method="POST" action="{{ url_for('upload') }}" enctype="multipart/form-data">
+        <input type="file" name="file[]" multiple>
+        <input type="submit" value="Upload">
+    </form>
+    </div>
+    <br>
+    <hr>
+    <form method="POST">
+    {% for image in images %}
+        <div class="image-container">
+            <img src="{{ url_for('static', filename='images/' + image) }}" alt="{{ image }}">
+            <span class="image-filename">{{ image }}</span>
+            <br>
+        <!--    <label for="{{ image }}">Caption {{ image }}:</label>-->
+            <textarea id="{{ image }}" name="{{ image }}" oninput="removeLineBreaks(this)">{{ captions.get(image, '') }}</textarea>
+        </div>
+    {% endfor %}
+    <button type="submit" class="update-captions-button">SAVE IMAGES & CAPTIONS</button>
+    </form>
+
+    <script>
+        function removeLineBreaks(element) {
+            element.value = element.value.replace(/\r?\n|\r/g, '');
+        }
+    </script>
+</body>
+</html>

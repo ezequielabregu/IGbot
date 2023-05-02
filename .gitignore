@@ -1,0 +1,5 @@
+mysetup.py
+venv/
+posts.csv
+cronjob.sh
+.DS_Store
